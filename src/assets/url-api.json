@@ -1,0 +1,5 @@
+{
+  "characters": "/v1/public/characters",
+  "comics": "/v1/public/characters/#id#/comics",
+  "series": "/v1/public/characters/#id#/series"
+}

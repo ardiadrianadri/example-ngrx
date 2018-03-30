@@ -1,0 +1,18 @@
+img.shield_capitan {
+  width: 6%;
+}
+
+div.title_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span.title_text {
+  font-size: xx-large;
+  margin: 0px 25px;
+}
+
+mat-toolbar-row.header_title.mat-toolbar-row {
+  height: 90px;
+}

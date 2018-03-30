@@ -1,0 +1,18 @@
+form.search-form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+div.form {
+  padding: 0px 15px;
+}
+
+div.form.input-space{
+  width: 100%;
+}
+
+mat-form-field.input-marvel{
+  width: 100%;
+}

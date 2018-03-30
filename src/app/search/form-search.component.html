@@ -1,0 +1,12 @@
+<form class="search-form" (submit)="searchEvent()">
+  <div class="form input-space">
+      <mat-form-field class="input-marvel">
+        <input matInput [(ngModel)]="heroName" placeholder="Name of a Marvel character" name="heroInput"/>
+      </mat-form-field>
+  </div>
+  <div class="form button-space">
+      <button mat-raised-button color="primary">
+        <span class="material-icons">search</span>
+      </button>
+  </div>
+</form>
