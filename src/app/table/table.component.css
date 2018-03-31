@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+  border-spacing: 0px;
+}
+
+th.ngrx-header.last {
+  border-right: none;
+}
+th.ngrx-header {
+  border-bottom: solid 3px black;
+  border-right: solid 3px black;
+  background-color: #3f50b5;
+  color: white;
+  height: 36px;
+}
+
+td.ngrx-body {
+  border-bottom: solid 1px black;
+  border-right: solid 3px black;
+  height: 30px;
+  text-align: justify;
+  padding: 0.5%;
+}
+
+td.ngrx-body.last {
+  border-right: none;
+}
+
+td.ngrx-body.description {
+  width: 50%;
+}

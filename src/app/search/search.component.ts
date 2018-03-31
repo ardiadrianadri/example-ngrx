@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
 import { TableService } from '../table/table.service';
 import { Table } from '../table/table.entities';
+import { TableConfig } from '../table/table-config.entites';
 
 @Component({
   selector: 'ngrx-search-hero',
-  templateUrl: 'search.component.html'
+  templateUrl: 'search.component.html',
+  styleUrls: ['./search.component.css']
 })
 
 export class SearchComponent {
 
   public searchTitle = 'Search for your favorite hero';
   public resultSearch = '';
-
-  private _nameSearch: string;
+  public tableConfig: TableConfig = {
+    defaultSize: 10,
+    columsConfig: [{
+      name: 'Name',
+      key: 'name'
+    }, {
+      name: 'Description',
+      key: 'description'
+    }, {
+      name: 'Date',
+      key: 'date'
+    }]
+  };
 
   constructor( private _tableService: TableService) { }
 
   public launchSearch (name: string) {
-    this._nameSearch = name;
-
-    this._tableService.loadPage(0, 5, this._nameSearch)
-    .subscribe(
-      (data: Table) => { this.resultSearch = JSON.stringify(data); },
-      (error: any) => { throw new Error(error); }
-    );
+    this._tableService.loadPage(0, 5, name);
   }
 }

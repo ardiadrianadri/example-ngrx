@@ -6,12 +6,14 @@ import { SearchComponent } from './search.component';
 import { searchRoutes } from './search.router';
 import {MatInputModule} from '@angular/material/input';
 import { FormSearchComponent } from './form-search.component';
+import { TableModule } from '../table/table.module';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild(searchRoutes),
-    MatInputModule
+    MatInputModule,
+    TableModule
   ],
   exports: [],
   declarations: [

@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <th class="ngrx-header" [ngClass]="{last: (i === numColumns)}" *ngFor="let column of configColumns; index as i">{{column.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of dataSource$ | async">
+      <td class="ngrx-body"
+      [ngClass]="{last: (i === numColumns), name:(column.key === 'name'), description: (column.key === 'description'), date: (column.key === 'date')}"
+      *ngFor="let column of configColumns; index as i">{{row[column.key]}}</td>
+    </tr>
+  </tbody>
+</table>
