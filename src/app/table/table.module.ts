@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {MatTableModule} from '@angular/material/table';
-
 import { TableComponent } from './table.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   imports: [
-    MatTableModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   exports: [
     TableComponent

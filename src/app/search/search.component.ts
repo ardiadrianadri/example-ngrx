@@ -27,9 +27,16 @@ export class SearchComponent {
     }]
   };
 
+  private _lastSearch: string;
+
   constructor( private _tableService: TableService) { }
 
   public launchSearch (name: string) {
+    this._lastSearch = name;
     this._tableService.loadPage(0, 5, name);
+  }
+
+  public changePage(pageData: {page: number, size: number}) {
+    this._tableService.loadPage(pageData.page, pageData.size, this._lastSearch);
   }
 }

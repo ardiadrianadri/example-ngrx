@@ -59,7 +59,7 @@ export class TableService {
       return this._http.get(finalUrl);
     }),
     map((marvelResult: any) => {
-      const lastPage = Math.floor(marvelResult.data.total / marvelResult.data.limit);
+      const lastPage = Math.ceil(marvelResult.data.total / marvelResult.data.limit) - 1;
 
       return new tableActions.GetPageSuccess(lastPage, this._config.page, this._config.size, marvelResult.data.results);
     }),

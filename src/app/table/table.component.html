@@ -5,10 +5,35 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of dataSource$ | async">
+    <tr *ngFor="let row of dataSource$ | async; index as idata" (mouseenter)="active = idata" (mouseleave)="active = -1" (click)="onClickElement(row)">
       <td class="ngrx-body"
-      [ngClass]="{last: (i === numColumns), name:(column.key === 'name'), description: (column.key === 'description'), date: (column.key === 'date')}"
+      [ngClass]="{last: (i === numColumns), name:(column.key === 'name'), description: (column.key === 'description'), date: (column.key === 'date'), active: (active === idata)}"
       *ngFor="let column of configColumns; index as i">{{row[column.key]}}</td>
     </tr>
   </tbody>
 </table>
+<div class="paginator">
+  <div class="pag-button first-elem" (click)="changePage(0)">
+      <span class="material-icons">keyboard_arrow_left</span>
+      <span class="material-icons last-arrow">keyboard_arrow_left</span>
+  </div>
+  <div class="pag-button previous-elem" (click)="changePage(actualPage - 1)">
+      <span class="material-icons">keyboard_arrow_left</span>
+  </div>
+  <div class="size-selector">
+      <mat-form-field>
+          <mat-select placeholder="Page size" [(value)]="sizePage" (change)="changeSize()">
+            <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  </div>
+  <div class="pag-button next-elem" (click)="changePage(actualPage + 1)">
+      <span class="material-icons">keyboard_arrow_right</span>
+  </div>
+  <div class="pag-button last-elem" (click)="changePage(lastPage)">
+      <span class="material-icons">keyboard_arrow_right</span>
+      <span class="material-icons last-arrow">keyboard_arrow_right</span>
+  </div>
+</div>

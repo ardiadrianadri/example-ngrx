@@ -20,6 +20,11 @@ td.ngrx-body {
   height: 30px;
   text-align: justify;
   padding: 0.5%;
+  cursor: pointer;
+}
+
+td.ngrx-body.active {
+  background-color: #e8e8e8;
 }
 
 td.ngrx-body.last {
@@ -28,4 +33,19 @@ td.ngrx-body.last {
 
 td.ngrx-body.description {
   width: 50%;
+}
+
+div.paginator {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+span.material-icons.last-arrow {
+  margin-left: -18px;
+}
+
+div.pag-button {
+  cursor: pointer;
 }
