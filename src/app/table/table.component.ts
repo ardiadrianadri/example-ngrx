@@ -59,7 +59,7 @@ export class TableComponent implements OnInit {
   }
 
   public changeSize () {
-    this.requestPage.emit({page: this.actualPage, size: this.sizePage});
+    this.requestPage.emit({page: 0, size: this.sizePage});
   }
 
   public onClickElement (row: MarvelElement) {

@@ -9,7 +9,16 @@ export namespace TableQuery {
   export const getTable = (state: AppState) => state.table;
 }
 
-export function TableReducer (state: Table, action: Action): Table {
+export const intialState: Table = {
+  pageSize: 5,
+  lastPage: 0,
+  actualPage: 0,
+  loading: false,
+  rows: [],
+  err: ''
+};
+
+export function TableReducer (state: Table = intialState, action: Action): Table {
   const result: Table = {... state};
 
   switch (action.type) {
