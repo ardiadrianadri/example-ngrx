@@ -10,8 +10,8 @@
   <tbody>
     <tr *ngFor="let row of dataSource$ | async; index as idata" (mouseenter)="active = idata" (mouseleave)="active = -1" (click)="onClickElement(row)">
       <td class="ngrx-body"
-      [ngClass]="{last: (i === numColumns), name:(column.key === 'name'), description: (column.key === 'description'), date: (column.key === 'date'), active: (active === idata)}"
-      *ngFor="let column of configColumns; index as i">{{row[column.key]}}</td>
+      [ngClass]="{last: (i === numColumns), name:(column.key === 'name'), description: (column.key === 'description'), active: (active === idata)}"
+      *ngFor="let column of configColumns; index as i">{{row[column.key] | ngrxpipe:'##dd##/##mm##/##yyyy##'}}</td>
     </tr>
   </tbody>
 </table>
