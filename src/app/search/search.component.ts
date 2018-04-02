@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { TableService } from '../table/table.service';
 import { Table } from '../table/table.entities';
 import { TableConfig } from '../table/table-config.entites';
+import { MarvelElement } from '../entities/marvel-element.entity';
 
 @Component({
   selector: 'ngrx-search-hero',
@@ -29,7 +32,10 @@ export class SearchComponent {
 
   private _lastSearch: string;
 
-  constructor( private _tableService: TableService) { }
+  constructor(
+    private _tableService: TableService,
+    private _router: Router
+  ) { }
 
   public launchSearch (name: string) {
     this._lastSearch = name;
@@ -38,5 +44,9 @@ export class SearchComponent {
 
   public changePage(pageData: {page: number, size: number}) {
     this._tableService.loadPage(pageData.page, pageData.size, this._lastSearch);
+  }
+
+  public navDetails(character: MarvelElement) {
+    this._router.navigateByUrl(`details-hero/${character}`);
   }
 }

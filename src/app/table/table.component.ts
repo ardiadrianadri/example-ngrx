@@ -21,6 +21,8 @@ export class TableComponent implements OnInit {
 
   @Output()
   public requestPage: EventEmitter<{page: number, size: number}> = new EventEmitter<{page: number, size: number}>();
+
+  @Output()
   public elementSelected: EventEmitter<MarvelElement> = new EventEmitter<MarvelElement>();
 
   public dataSource$: Observable<MarvelElement[]>;
