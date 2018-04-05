@@ -16,3 +16,8 @@ span.title_text {
 mat-toolbar-row.header_title.mat-toolbar-row {
   height: 90px;
 }
+
+span.material-icons.header {
+  font-size: 36px;
+  cursor: pointer;
+}

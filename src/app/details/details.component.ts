@@ -29,6 +29,7 @@ export class DetailsComponent implements OnInit {
     this._cardCharacter.cardCharacter$.subscribe(
       (data: Card) => {
         if (data.name) {
+          this.detailsTitle = 'Details of your character';
           this.detailsTitle = this.detailsTitle.replace(/your character/g, data.name);
         }
       },

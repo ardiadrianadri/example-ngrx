@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngrx-title',
@@ -9,4 +10,10 @@ import { Component, Input } from '@angular/core';
 export class TitleComponent {
   @Input()
   title = '';
+
+  constructor (private _router: Router) {}
+
+  public goHome() {
+    this._router.navigateByUrl('/');
+  }
 }
