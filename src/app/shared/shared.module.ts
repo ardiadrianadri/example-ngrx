@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { DatePipe } from './date.pipe';
 import { SpinnerComponent } from './spinner.component';
+import { CardComponent } from './card.component';
 
 
 const sharedModules = [
@@ -19,7 +20,8 @@ const sharedModules = [
 const sharedComponents = [
   TitleComponent,
   DatePipe,
-  SpinnerComponent
+  SpinnerComponent,
+  CardComponent
 ];
 
 @NgModule({

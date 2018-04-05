@@ -1,0 +1,12 @@
+div.full-card {
+  border: solid black 3px;
+  margin: 0.5%;
+  border-radius: 15px;
+}
+
+.header-card {
+  font-size: 40px;
+  font-family: monospace;
+  text-align: center;
+  border-bottom: solid 3px black;
+}
