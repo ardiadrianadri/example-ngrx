@@ -47,6 +47,6 @@ export class SearchComponent {
   }
 
   public navDetails(character: MarvelElement) {
-    this._router.navigateByUrl(`details-hero/${character}`);
+    this._router.navigateByUrl(`details-hero/${character.id}`);
   }
 }

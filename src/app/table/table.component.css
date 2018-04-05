@@ -49,9 +49,3 @@ span.material-icons.last-arrow {
 div.pag-button {
   cursor: pointer;
 }
-
-div.loading {
-  position: absolute;
-  margin-left: 43%;
-  margin-top: 5%;
-}

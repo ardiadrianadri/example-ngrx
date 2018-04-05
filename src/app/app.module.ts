@@ -8,6 +8,7 @@ import { appRoutes } from './app.router';
 import { SearchModule } from './search/search.module';
 import { CoreModule } from './core/core.module';
 import { StateModule } from './state/state.module';
+import { CardCharacterModule } from './character-card/character-card.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { StateModule } from './state/state.module';
     CoreModule,
     StateModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CardCharacterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

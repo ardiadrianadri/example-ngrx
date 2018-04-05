@@ -1,0 +1,14 @@
+div.card-space {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+img.card-space-photo {
+  width: 20%;
+}
+
+span.card-space-photo {
+  padding: 2%;
+  font-size: 40px;
+}

@@ -4,14 +4,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { TableService, TableReducer } from '../table';
+import { CharacterCardService, CardReducer } from '../character-card';
 
 @NgModule({
   imports: [
     EffectsModule.forRoot([
-      TableService
+      TableService,
+      CharacterCardService
     ]),
     StoreModule.forRoot({
-      table: TableReducer
+      table: TableReducer,
+      card: CardReducer
     })
   ],
   providers: [

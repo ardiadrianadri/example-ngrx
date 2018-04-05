@@ -1,5 +1,6 @@
 {
   "characters": "/v1/public/characters",
+  "singleCharacter": "/v1/public/characters/#id#",
   "comics": "/v1/public/characters/#id#/comics",
   "series": "/v1/public/characters/#id#/series"
 }
