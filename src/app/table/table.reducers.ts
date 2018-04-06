@@ -1,7 +1,7 @@
 import { AppState } from '../state/state';
 import * as tableActions from './table.actions';
 import { Table } from './table.entities';
-import { MarvelCharacter } from '../entities/marvel-character';
+import { MarvelElement } from '../entities/marvel-element.entity';
 
 export type Action = tableActions.ALL;
 
@@ -34,15 +34,14 @@ export function TableReducer (state: Table = intialState, action: Action): Table
       result.err = null;
       result.loading = false;
       result.rows = action.payload.map((marvelResult) => {
-        const marvelCharacter: MarvelCharacter = {
+        const marvelElement: MarvelElement = {
           id: marvelResult.id,
           name: marvelResult.name,
           description: marvelResult.description,
-          date: new Date(marvelResult.modified),
-          photo: `${marvelResult.thumbnail.path}.${marvelResult.thumbnail.extension}`
+          date: new Date(marvelResult.modified)
         };
 
-        return marvelCharacter;
+        return marvelElement;
       });
       break;
 
@@ -51,6 +50,12 @@ export function TableReducer (state: Table = intialState, action: Action): Table
       result.loading = false;
       result.err = action.err;
       break;
+
+    case tableActions.GET_PAGE_DETAILS:
+      action = (action as tableActions.GetPageDetails);
+      result.loading = true;
+      break;
+
   }
 
   return result;
