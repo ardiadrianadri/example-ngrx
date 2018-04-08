@@ -6,7 +6,8 @@ import { Effect, Actions } from '@ngrx/effects';
 
 
 import { Observable } from 'rxjs/Observable';
-import { concatMap, map, catchError } from 'rxjs/operators';
+import { concatMap, map, catchError, bufferCount } from 'rxjs/operators';
+import 'rxjs/add/observable/from';
 
 import { AppState } from '../state/state';
 import { TableQuery } from './table.reducers';
@@ -15,25 +16,41 @@ import { API_CONFIG_URL } from '../core/url.config';
 import { MarvelAuth } from '../entities/marvel-auth.entity';
 import { ApiUrls } from '../entities/urls.entity';
 import * as tableActions from './table.actions';
-import { Table } from './table.entities';
+import { Table, TableState } from './table.entities';
 
 type Action = tableActions.ALL;
-
-interface Config {
-  page: number;
-  size: number;
-  name: string;
-  id: string;
-}
 
 @Injectable()
 export class TableService {
 
-  private _config: Partial<Config> = {};
-
-  public table$ = this._store.select(TableQuery.getTable);
+  private _table$ = this._store.select(TableQuery.getTable);
 
   @Effect()
+  getPages$: Observable<Action> = this._actions$.ofType(tableActions.GET_PAGE)
+  .pipe(
+    concatMap((action: tableActions.GetPage) => {
+      return this._marvelAuth.getMarvelAuth();
+    }, (action: tableActions.GetPage, marvelAuth: MarvelAuth) => [action, marvelAuth]),
+    concatMap((value: [tableActions.GetPage, MarvelAuth]) => {
+      return this._endPoints;
+    }, (values: [tableActions.GetPage, MarvelAuth], apiUrls: ApiUrls) => {
+      const finalUrl = apiUrls[values[0].dataType];
+      return [...values, finalUrl];
+    }),
+    concatMap((value: [tableActions.GetPage, MarvelAuth, string]) => {
+      let finalUrl = value[2];
+      finalUrl = `${finalUrl}?ts=${value[1].ts}&hash=${value[1].hash}&apikey=${value[1].apikey}`;
+      finalUrl = `${finalUrl}&offset=${value[0].size * value[0].page}&limit=${value[0].size}&nameStartsWith=${value[0].name}`;
+
+      return this._http.get(finalUrl);
+    }, (values: [tableActions.GetPage, MarvelAuth, string], marvelResult: any) => [values[0], marvelResult]),
+    map((value: [tableActions.GetPage, any]) => {
+      const lastPage = Math.ceil(value[1].data.total / value[1].data.limit) - 1;
+      return new tableActions.GetPageSuccess(lastPage, value[0].page, value[0].size, value[0].dataType, value[1].data.results);
+    })
+  );
+
+  /*@Effect()
   getPage$: Observable<Action> = this._actions$.ofType(tableActions.GET_PAGE)
   .pipe(
     concatMap((action: tableActions.GetPage) => {
@@ -57,30 +74,7 @@ export class TableService {
     catchError((err: any) => {
       return Observable.throw(new tableActions.SetError(err));
     })
-  );
-
-  @Effect()
-  getPageDetails$: Observable<Action> = this._actions$.ofType(tableActions.GET_PAGE_DETAILS)
-  .pipe(
-    concatMap((action: tableActions.GetPageDetails) => {
-      this._config.page = action.page;
-      this._config.size = action.size;
-      this._config.id = action.id;
-
-      return this._getFinalUrl(action.typeData);
-    }),
-    concatMap((finalUrl: string) => {
-      finalUrl = finalUrl.replace(/#id#/g, this._config.id);
-      finalUrl = `${finalUrl}&offset=${this._config.size * this._config.page}&limit=${this._config.size}`;
-
-      return this._http.get(finalUrl);
-    }),
-    map((marvelResult: any) => {
-      const lastPage = Math.ceil(marvelResult.data.total / marvelResult.data.limit) - 1;
-
-      return new tableActions.GetPageSuccess(lastPage, this._config.page, this._config.size, marvelResult.data.results);
-    })
-  );
+  );*/
 
   constructor(
     @Inject(API_CONFIG_URL) private _endPoints: Observable<ApiUrls>,
@@ -93,25 +87,13 @@ export class TableService {
   public loadPage (page: number, size: number, name: string): Observable<Table> {
 
     this._store.dispatch(new tableActions.GetPage(page, size, name));
-    return this.table$;
+    return this.getTable('characters');
   }
 
-  public loadPageDetails (id: string, typeData: 'comics' | 'series', page: number, size: number): Observable<Table> {
-    this._store.dispatch(new tableActions.GetPageDetails(id, typeData, page, size));
-    return this.table$;
-  }
-
-  private _getFinalUrl(url: string): Observable<string> {
-    let authMarvel: MarvelAuth;
-
-    return this._marvelAuth.getMarvelAuth()
+  public getTable(type: string): Observable<Table> {
+    return this._table$
     .pipe(
-      concatMap((marvelAuth: MarvelAuth) => {
-        authMarvel = marvelAuth;
-
-        return this._endPoints;
-      }),
-      map((apiUrls: ApiUrls) => `${apiUrls[url]}?hash=${authMarvel.hash}&ts=${authMarvel.ts}&apikey=${authMarvel.apikey}`)
+      map((tableState: TableState) => (tableState[type]) ? tableState[type] : tableState.default)
     );
   }
 }

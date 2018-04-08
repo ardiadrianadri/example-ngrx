@@ -19,6 +19,9 @@ export class TableComponent implements OnInit {
   @Input()
   public tableConfig: TableConfig = null;
 
+  @Input()
+  public dataType: string;
+
   @Output()
   public requestPage: EventEmitter<{page: number, size: number}> = new EventEmitter<{page: number, size: number}>();
 
@@ -41,7 +44,7 @@ export class TableComponent implements OnInit {
     this.configColumns = this.tableConfig.columsConfig;
     this.numColumns = this.configColumns.length - 1 ;
 
-    this.dataSource$ = this._tableService.table$
+    this.dataSource$ = this._tableService.getTable(this.dataType)
     .pipe(
       map((table: Table) => {
         this.lastPage = table.lastPage;

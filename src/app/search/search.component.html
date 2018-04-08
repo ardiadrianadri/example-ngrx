@@ -2,5 +2,5 @@
 <ngrx-form-search (searchEmit)="launchSearch($event)"></ngrx-form-search>
 
 <div class="table-container">
-    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePage($event)" (elementSelected)="navDetails($event)"></ngrx-table>
+    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePage($event)" (elementSelected)="navDetails($event)" [dataType]="'characters'"></ngrx-table>
 </div>

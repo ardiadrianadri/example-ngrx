@@ -1,7 +1,7 @@
-import { Table } from '../table';
+import { TableState } from '../table';
 import { Card } from '../character-card';
 
 export interface AppState {
-  table: Table;
+  table: TableState;
   card: Card;
 }
