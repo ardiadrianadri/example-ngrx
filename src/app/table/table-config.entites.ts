@@ -6,5 +6,6 @@ export interface ConfigColum {
 
 export interface TableConfig {
   defaultSize: number;
+  showSize: boolean;
   columsConfig: ConfigColum[];
 }

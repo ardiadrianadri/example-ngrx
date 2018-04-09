@@ -21,7 +21,7 @@
   <div class="pag-button previous-elem" (click)="changePage(actualPage - 1)">
       <span class="material-icons">keyboard_arrow_left</span>
   </div>
-  <div class="size-selector">
+  <div class="size-selector" *ngIf="tableConfig.showSize">
       <mat-form-field>
           <mat-select placeholder="Page size" [(value)]="sizePage" (change)="changeSize()">
             <mat-option *ngFor="let size of pageSizeOptions" [value]="size">

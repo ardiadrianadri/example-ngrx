@@ -27,7 +27,8 @@ export class SearchComponent {
     }, {
       name: 'Date',
       key: 'date'
-    }]
+    }],
+    showSize: true
   };
 
   private _lastSearch: string;

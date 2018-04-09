@@ -55,10 +55,6 @@ export function TableReducer (state: TableState = {}, action: Action): TableStat
       result[dataType].loading = false;
       result[dataType].err = action.err;
       break;
-
-    case tableActions.GET_PAGE_DETAILS:
-      result[dataType].loading = true;
-      break;
   }
 
   return result;
