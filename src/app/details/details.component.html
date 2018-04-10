@@ -6,5 +6,10 @@
   </ngrx-card>
 </div>
 <div class="secondRow">
-  
+  <ngrx-card [cardTitle]="'Comics'" class="table comics">
+    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePageComics($event)" [dataType]="'comics'"></ngrx-table>
+  </ngrx-card>
+  <ngrx-card [cardTitle]="'Series'" class="table series">
+    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePageSeries($event)" [dataType]="'series'"></ngrx-table>
+  </ngrx-card>
 </div>

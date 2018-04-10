@@ -1,0 +1,7 @@
+div.secondRow {
+  display: flex;
+}
+
+ngrx-card.table {
+  width: 50%;
+}

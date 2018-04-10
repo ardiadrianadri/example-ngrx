@@ -1,5 +1,5 @@
 <ngrx-spinner [loading]="loading"></ngrx-spinner>
-<table>
+<table *ngIf="dataSource$">
   <thead>
     <tr>
       <th class="ngrx-header" [ngClass]="{last: (i === numColumns)}" *ngFor="let column of configColumns; index as i">{{column.name}}</th>

@@ -41,7 +41,7 @@ export function TableReducer (state: TableState = {}, action: Action): TableStat
       result[dataType].rows = action.payload.map((marvelResult) => {
         const marvelElement: MarvelElement = {
           id: marvelResult.id,
-          name: marvelResult.name,
+          name: (marvelResult.name) ? marvelResult.name : marvelResult.title,
           description: marvelResult.description,
           date: new Date(marvelResult.modified)
         };

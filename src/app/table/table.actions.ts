@@ -1,5 +1,6 @@
 
 import { Action } from '@ngrx/store';
+import { DataType, Payload } from './table.entities';
 
 export const GET_PAGE = '[TABLE] Get page';
 export const GET_PAGE_SUCCESS = '[TABLE] Get page success';
@@ -8,11 +9,11 @@ export const SET_ERROR_TABLE = '[TABLE] Set error';
 export class GetPage implements Action {
   readonly type = GET_PAGE;
 
-  public dataType = 'characters';
   constructor (
     public page: number,
     public size: number,
-    public name: string) {}
+    public dataType: DataType,
+    public payload: Payload) {}
 }
 
 export class GetPageSuccess implements Action {

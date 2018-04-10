@@ -16,7 +16,7 @@ import { API_CONFIG_URL } from '../core/url.config';
 import { MarvelAuth } from '../entities/marvel-auth.entity';
 import { ApiUrls } from '../entities/urls.entity';
 import * as tableActions from './table.actions';
-import { Table, TableState } from './table.entities';
+import { Table, TableState, DataType, Payload } from './table.entities';
 
 type Action = tableActions.ALL;
 
@@ -40,7 +40,13 @@ export class TableService {
     concatMap((value: [tableActions.GetPage, MarvelAuth, string]) => {
       let finalUrl = value[2];
       finalUrl = `${finalUrl}?ts=${value[1].ts}&hash=${value[1].hash}&apikey=${value[1].apikey}`;
-      finalUrl = `${finalUrl}&offset=${value[0].size * value[0].page}&limit=${value[0].size}&nameStartsWith=${value[0].name}`;
+      finalUrl = `${finalUrl}&offset=${value[0].size * value[0].page}&limit=${value[0].size}`;
+
+      if (value[0].dataType === 'characters') {
+        finalUrl = `${finalUrl}&nameStartsWith=${value[0].payload.name}`;
+      } else {
+        finalUrl = finalUrl.replace(/#id#/g, value[0].payload.id);
+      }
 
       return this._http.get(finalUrl);
     }, (values: [tableActions.GetPage, MarvelAuth, string], marvelResult: any) => [values[0], marvelResult]),
@@ -84,13 +90,13 @@ export class TableService {
     private _actions$: Actions
   ) { }
 
-  public loadPage (page: number, size: number, name: string): Observable<Table> {
+  public loadPage (page: number, size: number, dataType: DataType, payload: Payload): Observable<Table> {
 
-    this._store.dispatch(new tableActions.GetPage(page, size, name));
-    return this.getTable('characters');
+    this._store.dispatch(new tableActions.GetPage(page, size, dataType, payload));
+    return this.getTable(dataType);
   }
 
-  public getTable(type: string): Observable<Table> {
+  public getTable(type: DataType): Observable<Table> {
     return this._table$
     .pipe(
       map((tableState: TableState) => (tableState[type]) ? tableState[type] : tableState.default)

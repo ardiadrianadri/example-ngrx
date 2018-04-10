@@ -40,11 +40,11 @@ export class SearchComponent {
 
   public launchSearch (name: string) {
     this._lastSearch = name;
-    this._tableService.loadPage(0, 5, name);
+    this._tableService.loadPage(0, 5, 'characters', { name: this._lastSearch });
   }
 
   public changePage(pageData: {page: number, size: number}) {
-    this._tableService.loadPage(pageData.page, pageData.size, this._lastSearch);
+    this._tableService.loadPage(pageData.page, pageData.size, 'characters', { name: this._lastSearch });
   }
 
   public navDetails(character: MarvelElement) {

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { TableService } from './table.service';
 import { TableConfig, ConfigColum } from './table-config.entites';
 import { MarvelElement } from '../entities/marvel-element.entity';
-import { Table } from './table.entities';
+import { Table, DataType } from './table.entities';
 
 @Component({
   selector: 'ngrx-table',
@@ -20,7 +20,7 @@ export class TableComponent implements OnInit {
   public tableConfig: TableConfig = null;
 
   @Input()
-  public dataType: string;
+  public dataType: DataType;
 
   @Output()
   public requestPage: EventEmitter<{page: number, size: number}> = new EventEmitter<{page: number, size: number}>();
@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   public elementSelected: EventEmitter<MarvelElement> = new EventEmitter<MarvelElement>();
 
   public dataSource$: Observable<MarvelElement[]>;
-  public loading = false;
+  public loading = true;
   public configColumns: ConfigColum[];
   public sizePage: number;
   public numColumns: number;
@@ -52,6 +52,13 @@ export class TableComponent implements OnInit {
         this.sizePage = table.pageSize;
         this.loading = table.loading;
 
+        if (this.tableConfig.lengthDescription) {
+          table.rows = table.rows.map((row: MarvelElement) => {
+            row.description = (row.description) ? row.description.substring(0, this.tableConfig.lengthDescription) : '';
+
+            return row;
+          });
+        }
         return table.rows;
       })
     );
