@@ -1,6 +1,6 @@
 <ngrx-title [title]="searchTitle"></ngrx-title>
 <ngrx-form-search (searchEmit)="launchSearch($event)"></ngrx-form-search>
-
+<ngrx-spinner [loading]="loading"></ngrx-spinner>
 <div class="table-container">
-    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePage($event)" (elementSelected)="navDetails($event)" [dataType]="'characters'"></ngrx-table>
+    <ngrx-table (eventLoading)="updateLoading($event)" [tableConfig]="tableConfig" (requestPage)="changePage($event)" (elementSelected)="navDetails($event)" [dataType]="'characters'"></ngrx-table>
 </div>

@@ -16,6 +16,7 @@ export class SearchComponent {
 
   public searchTitle = 'Search for your favorite hero';
   public resultSearch = '';
+  public loading = false;
   public tableConfig: TableConfig = {
     defaultSize: 10,
     columsConfig: [{
@@ -49,5 +50,9 @@ export class SearchComponent {
 
   public navDetails(character: MarvelElement) {
     this._router.navigateByUrl(`details-hero/${character.id}`);
+  }
+
+  public updateLoading(loading: boolean) {
+    this.loading = loading;
   }
 }

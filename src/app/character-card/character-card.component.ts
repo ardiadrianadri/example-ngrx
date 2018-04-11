@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 import { CharacterCardService } from './character-card.service';
 import { MarvelCharacter } from '../entities/marvel-character';
@@ -11,13 +11,15 @@ import { Card } from './character-card.entity';
 })
 export class CardCharacterComponent {
   public marvelCharacter: MarvelCharacter;
-  public loading = false;
+
+  @Output()
+  public eventLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private _store: CharacterCardService) {
     this._store.cardCharacter$.subscribe(
       (card: Card) => {
         if (card.id) {
-          this.loading = card.loading;
+          this.eventLoading.emit(card.loading);
           this.marvelCharacter = {
             id: card.id,
             name: card.name,

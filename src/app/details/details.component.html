@@ -1,15 +1,19 @@
 <ngrx-title [title]="detailsTitle"></ngrx-title>
 
+<div class="spinner">
+  <ngrx-spinner [loading]="loading"></ngrx-spinner>
+</div>
+
 <div class="firstRow">
   <ngrx-card [cardTitle]="'Description'">
-    <ngrx-card-character></ngrx-card-character>
+    <ngrx-card-character (eventLoading)="updateLoading('card', $event)"></ngrx-card-character>
   </ngrx-card>
 </div>
 <div class="secondRow">
   <ngrx-card [cardTitle]="'Comics'" class="table comics">
-    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePageComics($event)" [dataType]="'comics'"></ngrx-table>
+    <ngrx-table [tableConfig]="tableConfig" (eventLoading)="updateLoading('comics', $event)" (requestPage)="changePageComics($event)" [dataType]="'comics'"></ngrx-table>
   </ngrx-card>
   <ngrx-card [cardTitle]="'Series'" class="table series">
-    <ngrx-table [tableConfig]="tableConfig" (requestPage)="changePageSeries($event)" [dataType]="'series'"></ngrx-table>
+    <ngrx-table [tableConfig]="tableConfig" (eventLoading)="updateLoading('series', $event)" (requestPage)="changePageSeries($event)" [dataType]="'series'"></ngrx-table>
   </ngrx-card>
 </div>

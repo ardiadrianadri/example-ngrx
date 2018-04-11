@@ -26,6 +26,9 @@ export class TableComponent implements OnInit {
   public requestPage: EventEmitter<{page: number, size: number}> = new EventEmitter<{page: number, size: number}>();
 
   @Output()
+  public eventLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output()
   public elementSelected: EventEmitter<MarvelElement> = new EventEmitter<MarvelElement>();
 
   public dataSource$: Observable<MarvelElement[]>;
@@ -50,7 +53,7 @@ export class TableComponent implements OnInit {
         this.lastPage = table.lastPage;
         this.actualPage = table.actualPage;
         this.sizePage = table.pageSize;
-        this.loading = table.loading;
+        this.eventLoading.emit(table.loading);
 
         if (this.tableConfig.lengthDescription) {
           table.rows = table.rows.map((row: MarvelElement) => {

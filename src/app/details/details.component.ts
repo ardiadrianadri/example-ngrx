@@ -16,6 +16,7 @@ export class DetailsComponent implements OnInit {
 
   public detailsTitle = 'Details of your character';
   public hero: MarvelCharacter;
+  public loading = true;
 
   public tableConfig: TableConfig = {
     defaultSize: 10,
@@ -34,6 +35,9 @@ export class DetailsComponent implements OnInit {
   };
 
   private _idCharacter: string;
+  private _loadingCard = false;
+  private _loadingComics = false;
+  private _loadingSeries = false;
 
   constructor (
     private _activatedRote: ActivatedRoute,
@@ -65,5 +69,21 @@ export class DetailsComponent implements OnInit {
 
   public changePageSeries(pageData: {page: number, size: number}) {
     this._tableService.loadPage(pageData.page, pageData.size, 'series', {id: this._idCharacter});
+  }
+
+  public updateLoading(loadingType: string, loading: boolean) {
+    switch(loadingType) {
+      case 'card':
+        this._loadingCard = loading;
+        break;
+      case 'comics':
+        this._loadingComics = loading;
+        break;
+      case 'series':
+        this._loadingSeries = loading;
+        break;
+    }
+
+    this.loading = this._loadingCard || this._loadingComics || this._loadingSeries;
   }
 }
